@@ -11,10 +11,9 @@ class FavoriteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String shortenText(String text, int maxLength) {
       if (text.length <= maxLength) {
-        return text; // Return the original text if it's already within the desired length
+        return text;
       } else {
-        return text.substring(0, maxLength) +
-            '...'; // Return a substring with ellipsis
+        return text.substring(0, maxLength) + '...';
       }
     }
 

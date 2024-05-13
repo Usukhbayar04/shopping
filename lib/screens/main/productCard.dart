@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:shopping/Provider/favorite_provider.dart';
 import 'package:shopping/models/products.dart';
 import 'package:shopping/screens/detail/detail_page.dart';
+
+import '../../Provider/auth_provider.dart';
+import '../login_signup/login.dart';
+
+// import '../../Provider/auth_provider.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel data;
@@ -18,6 +25,7 @@ class ProductCard extends StatelessWidget {
     }
 
     final providerFavo = FavoriteProvider.of(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     // double height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
@@ -81,7 +89,13 @@ class ProductCard extends StatelessWidget {
                                 size: 18,
                               ),
                           SizedBox(width: 5),
-                          Text('${data.rating!.rate} (5)'),
+                          Text(
+                            '${data.rating!.rate} (5)',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -110,7 +124,16 @@ class ProductCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: GestureDetector(
                         onTap: () {
-                          providerFavo.toggleFavorite(data);
+                          if (authProvider.isLoggedIn) {
+                            providerFavo.toggleFavorite(data);
+                            print('nevtersen bn');
+                          } else {
+                            print('not logged in.');
+                            Navigator.push(
+                                (context),
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
+                          }
                         },
                         child: Icon(
                           providerFavo.isExist(data)

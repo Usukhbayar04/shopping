@@ -1,33 +1,26 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shopping/models/products.dart';
-import 'package:shopping/screens/main/productCard.dart';
+import '../../models/products.dart';
+import 'productCard.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class MyHomePage extends StatefulWidget {
+  MyHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  Future<List<ProductModel>> _getData() async {
-    String result = await DefaultAssetBundle.of(context)
-        .loadString("assets/data/products.json");
-    return ProductModel.fromList(jsonDecode(result));
-  }
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.width;
-    // List<List<ProductModel>> selectedCate = [
-    //   'Men\'s Clothing',
-    //   'Jewelry',
-    //   'Electronics',
-    //   'Women\'s Clothing',
-    // ];
+
+    Future<List<ProductModel>> _getData() async {
+      String result = await DefaultAssetBundle.of(context)
+          .loadString("assets/data/products.json");
+      return ProductModel.fromList(jsonDecode(result));
+    }
 
     return FutureBuilder(
       future: _getData(),
@@ -65,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.all(0),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Align(
@@ -77,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'New',
+                                  'New style',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w800,
@@ -110,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                                 spacing: 5,
                                 runSpacing: 5,
                                 children: List.generate(
-                                  min(snapshot.data!.length, 6),
+                                  min(snapshot.data!.length, 4),
                                   (index) =>
                                       ProductCard(data: snapshot.data![index]),
                                 ),
@@ -123,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(0),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Align(
@@ -135,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'New style',
+                                  'New Collects',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w800,
@@ -169,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                                   children: List.generate(
                                     min(snapshot.data!.length, 4),
                                     (index) => ProductCard(
-                                        data: snapshot.data![index]),
+                                        data: snapshot.data![index + 4]),
                                   ),
                                 ),
                               ),

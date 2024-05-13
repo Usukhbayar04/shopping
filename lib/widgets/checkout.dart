@@ -1,8 +1,36 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shopping/Provider/card_provider.dart';
 
 class CheckOut extends StatelessWidget {
   const CheckOut({super.key});
+
+  Future<bool> login(
+      BuildContext context, String email, String password) async {
+    final response =
+        await http.get(Uri.parse('https://fakestoreapi.com/users'));
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      for (var user in data) {
+        if (user['email'] == email && user['password'] == password) {
+          print('User authenticated');
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => HomePage(),
+          //     ));
+          return true;
+        }
+      }
+      print('Invalid email or password');
+      return false;
+    } else {
+      print('Failed to authenticate. Server error.');
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +92,14 @@ class CheckOut extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () {
-              print('price: ${provider.totalPrice()}');
+            onPressed: () async {
+              bool isLoggedIn =
+                  await login(context, 'user@example.com', 'password');
+              if (isLoggedIn) {
+                print('price: ${provider.totalPrice()}');
+              } else {
+                print('user not loggin in');
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amber,

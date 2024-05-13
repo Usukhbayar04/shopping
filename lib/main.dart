@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/Provider/auth_provider.dart';
 import 'package:shopping/Provider/card_provider.dart';
 import 'package:shopping/Provider/favorite_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping/screens/main/home_page.dart';
-
-// import 'screens/myhome_page.dart';
+import 'package:shopping/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,17 +17,18 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => CartProvider()),
           ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+          ChangeNotifierProvider(create: (_) => AuthProvider()),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(255, 0, 0, 0)),
+              seedColor: Color.fromARGB(255, 231, 227, 227),
+            ),
             useMaterial3: true,
-            scaffoldBackgroundColor: const Color.fromARGB(228, 255, 255, 255),
+            scaffoldBackgroundColor: Color.fromARGB(255, 233, 227, 227),
           ),
           home: HomePage(),
         ),
       );
 }
-// morrison@gmail.com

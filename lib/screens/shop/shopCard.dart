@@ -59,9 +59,9 @@ class ShopCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    shortenText(data.title!, 15),
+                    shortenText(data.title!, 10),
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
                     ),
@@ -70,7 +70,7 @@ class ShopCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    shortenText(data.description!, 30),
+                    shortenText(data.description!, 20),
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black87,
@@ -104,7 +104,13 @@ class ShopCard extends StatelessWidget {
                                   size: 18,
                                 ),
                             SizedBox(width: 5),
-                            Text('${data.rating!.rate} (5)'),
+                            Text(
+                              '${data.rating!.rate} (5)',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
                           ],
                         ),
                       ],

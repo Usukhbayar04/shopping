@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping/Provider/card_provider.dart';
 import 'package:shopping/Provider/favorite_provider.dart';
 import 'package:shopping/models/products.dart';
+import 'package:shopping/screens/login_signup/login.dart';
+
+import '../../Provider/auth_provider.dart';
 
 class DetailPage extends StatefulWidget {
   final ProductModel data;
@@ -21,6 +25,8 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
     final providerFavo = FavoriteProvider.of(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: Padding(
@@ -83,21 +89,31 @@ class _DetailPageState extends State<DetailPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  provider.toggleFavorite(widget.data);
-                  const snackBar = SnackBar(
-                    content: Text(
-                      'Succesfully added!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Colors.white,
+                  if (authProvider.isLoggedIn) {
+                    providerFavo.toggleFavorite(widget.data);
+                    provider.toggleFavorite(widget.data);
+                    const snackBar = SnackBar(
+                      content: Text(
+                        'Succesfully added!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    duration: Duration(
-                      seconds: 1,
-                    ),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      duration: Duration(
+                        seconds: 1,
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    print('nevtersen bn');
+                  } else {
+                    print('not logged in.');
+                    Navigator.push(
+                      (context),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  }
                 },
                 child: Container(
                   height: 55,
@@ -154,14 +170,19 @@ class _DetailPageState extends State<DetailPage> {
                       padding: const EdgeInsets.all(15),
                     ),
                     onPressed: () {
-                      providerFavo.toggleFavorite(widget.data);
+                      if (authProvider.isLoggedIn) {
+                        providerFavo.toggleFavorite(widget.data);
+                      } else {
+                        Navigator.push((context),
+                            MaterialPageRoute(builder: (_) => LoginPage()));
+                      }
                     },
                     icon: Icon(
                       providerFavo.isExist(widget.data)
                           ? Icons.favorite
                           : Icons.favorite_border,
                       color: Colors.black,
-                      size: 25,
+                      size: 24,
                     ),
                   ),
                 ],
