@@ -3,7 +3,7 @@ import 'package:shopping/Provider/auth_provider.dart';
 import 'package:shopping/Provider/card_provider.dart';
 import 'package:shopping/Provider/favorite_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping/home_page.dart';
+import 'package:shopping/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             scaffoldBackgroundColor: Color.fromARGB(255, 233, 227, 227),
           ),
-          home: HomePage(),
+          home: MainPage(),
         ),
       );
 }

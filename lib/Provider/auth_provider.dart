@@ -8,8 +8,12 @@ import '../screens/profile/profile_page.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isLoggedIn = false;
-
   bool get isLoggedIn => _isLoggedIn;
+
+  void setLoggedIn(bool value) {
+    _isLoggedIn = value;
+    notifyListeners();
+  }
 
   Future<User?> login(
       BuildContext context, String email, String password) async {
@@ -23,25 +27,22 @@ class AuthProvider extends ChangeNotifier {
           print('User authenticated');
           _isLoggedIn = true;
           notifyListeners();
-          // AuthProvider. = true;
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => ProfilePage(),
             ),
           );
-        } else {
-          print('Invalid email or password');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Invalid email or password'),
-              duration: Duration(seconds: 2),
-            ),
-          );
         }
       }
     } else {
       print('Failed to authenticate. Server error.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('user not found'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
     return null;
   }

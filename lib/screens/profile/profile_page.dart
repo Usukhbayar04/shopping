@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping/screens/login_signup/login.dart';
 
-// ignore: must_be_immutable
+import '../../Provider/auth_provider.dart';
+
 class ProfilePage extends StatefulWidget {
-  final User? user;
-  ProfilePage({Key? key, this.user}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -13,16 +14,32 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Name: ${widget.user!.username}'),
-            Text('password: ${widget.user?.password}'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  (context),
+                  MaterialPageRoute(builder: (_) => LoginPage()),
+                );
+              },
+              child: Text(authProvider.isLoggedIn ? 'Logout' : 'login'),
+            ),
           ],
         ),
       ),

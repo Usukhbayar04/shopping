@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../models/products.dart';
 import 'productCard.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.width;

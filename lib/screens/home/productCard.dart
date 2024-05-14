@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 import 'package:shopping/Provider/favorite_provider.dart';
 import 'package:shopping/models/products.dart';
 import 'package:shopping/screens/detail/detail_page.dart';
-
 import '../../Provider/auth_provider.dart';
 import '../login_signup/login.dart';
-
-// import '../../Provider/auth_provider.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel data;
@@ -26,7 +22,6 @@ class ProductCard extends StatelessWidget {
 
     final providerFavo = FavoriteProvider.of(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    // double height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -68,7 +63,6 @@ class ProductCard extends StatelessWidget {
                     if (data.rating != null) ...[
                       Row(
                         children: [
-                          // Display star icons based on the rating rate
                           for (int i = 0; i < 5; i++)
                             if (i < data.rating!.rate!.floor())
                               Icon(

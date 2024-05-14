@@ -23,9 +23,7 @@ class LoginPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => ProfilePage(
-                  user:
-                      authenticatedUser), // Pass the authenticated user to ProfilePage
+              builder: (_) => ProfilePage(),
             ),
           );
         } else {

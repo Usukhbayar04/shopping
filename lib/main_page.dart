@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:shopping/Provider/auth_provider.dart';
-// import 'package:shopping/models/user.dart';
 import 'package:shopping/screens/bag/bag_page.dart';
 import 'package:shopping/screens/favorite/favorite_page.dart';
+import 'package:shopping/screens/home/home_page.dart';
 import 'package:shopping/screens/profile/profile_page.dart';
 import 'package:shopping/screens/shop/shop_page.dart';
-import 'screens/main/my_home_page.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class MainPage extends StatefulWidget {
+  MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  // User? currentUser;
-
-  // void initState() {
-  //   super.initState();
-  //   currentUser = Provider.of<AuthProvider>(context, listen: false).currentUser;
-  // }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      MyHomePage(),
+      HomePage(),
       ShopPage(),
       BagPage(),
       FavoritePage(),
-      ProfilePage(user: null), // if (currentUser != null) ProfilePage(),
+      ProfilePage(),
     ];
     return Scaffold(
       body: screens[currentIndex],
